@@ -1,0 +1,130 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/github-dark.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Arcondicionado2.0</title>
+  <meta name="description" content="Exercício 5 de 8 da Lista de Padrões de Projeto">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Arcondicionado2.0</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Exercício 5 de 8 da Lista de Padrões de Projeto</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/izabely-furtado/ArCondicionado2.0/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/izabely-furtado/ArCondicionado2.0/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/izabely-furtado/ArCondicionado2.0" class="code">View Arcondicionado2.0 on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h3>
+<a id="diagrama-do-padrão-mediador-implementado" class="anchor" href="#diagrama-do-padr%C3%A3o-mediador-implementado" aria-hidden="true"><span class="octicon octicon-link"></span></a>Diagrama do Padrão Mediador Implementado</h3>
+
+<p>O diagrama abaixo representa como o padrão mediador foi implementado nesse projeto, reaproveitando-se da versão anterior e fazendo as modificações necessárias</p>
+
+<p><img src="https://github.com/izabely-furtado/ArCondicionado2.0/blob/master/diagramas/Class%20DiagramMediator.png?raw=true" alt=""></p>
+
+<h3>
+<a id="explicaçãomodificações" class="anchor" href="#explica%C3%A7%C3%A3omodifica%C3%A7%C3%B5es" aria-hidden="true"><span class="octicon octicon-link"></span></a>Explicação/Modificações</h3>
+
+<p>Basicamente esta implementação foi feita em cima do código já existente, que se encontra no <a href="http://izabely-furtado.github.io/ArCondicionado/">Link Ar Condicionado</a>, assim, tudo referente ao padrão usado anteriormente está explicado no link indicado.</p>
+
+<p>As mudanças ocorreram primordialmente referentes a:</p>
+
+<ul>
+<li>mudança no método <strong>+notifyObservers()</strong> assim como demonstrado no diagrama. </li>
+<li>criação do atributo mediador em Sensor e os métodos para enviar e receber mensagem.</li>
+<li>criação das classes de cada um dos 3 sensores que estendem a classe Sensor e implementam o método <strong>+receberMensagem(String msg)</strong> e possuem um mediador.</li>
+<li>criação da interface Mediator que obriga a classe MensagemMediator implementar <strong>+enviar(String msg, Sensor sensor)</strong>.</li>
+<li>criação da classe MensagemMediator, que será melhor definida a seguir:</li>
+</ul>
+
+<p>`
+public class MensagemMediator implements Mediator{
+    List sensores;</p>
+
+<pre><code>public MensagemMediator(){
+    sensores = new ArrayList();
+}
+
+public void addSensor(Sensor s){
+    this.sensores.add(s);
+}
+
+@Override
+public void enviar(String mensagem, Sensor sensor) {
+    for (Sensor s : this.sensores) {
+        if (s != sensor) {
+            definirProtocolo(s);
+            s.receberMensagem(mensagem);
+        }
+    }
+}
+
+private void definirProtocolo(Sensor sensor) {
+    if (sensor instanceof Sensor1) {
+        System.out.println("Protocolo Sensor1");
+    } else if (sensor instanceof Sensor2) {
+        System.out.println("Protocolo Sensor2");
+    } else if (sensor instanceof Sensor3) {
+        System.out.println("Protocolo Sensor3");
+    }
+    else{
+        throw new UnsupportedOperationException("Sensor não suportado");
+    }
+}
+</code></pre>
+
+<p>}
+`</p>
+
+<h3>
+<a id="motivações" class="anchor" href="#motiva%C3%A7%C3%B5es" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivações</h3>
+
+<ul>
+<li><p>Diminuir a complexidade de relacionamentos entre objetos, garantindo assim que todos fiquem mais livres para sofrer mudanças, bem como facilitando a introdução de novos tipos de objetos ao relacionamento.</p></li>
+<li><p>Centralização da lógica de controle de comunicação entre os objetos, imagine que o protocolo de comunicação com o Android precisasse ser alterado, a mudança seria em um local bem específico da classe Mediator.</p></li>
+<li><p>Centraliza o controle dos objetos Sensor.</p></li>
+</ul>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/izabely-furtado" class="avatar"><img src="https://avatars3.githubusercontent.com/u/14110922?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/izabely-furtado">izabely-furtado</a> maintains <a href="https://github.com/izabely-furtado/ArCondicionado2.0">Arcondicionado2.0</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/izabely-furtado/ArCondicionado2.0/tarball/master" class="tar">tar</a><a href="https://github.com/izabely-furtado/ArCondicionado2.0/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
