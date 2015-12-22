@@ -24,6 +24,10 @@ public class ArCondicionado extends Observable{
         this.temperatura = 25;
     }
     
+    public List<Sensor> getSensores(){
+        return this.sensores;
+    }
+    
     public int getTemp(){
         return this.temperatura;
     }
