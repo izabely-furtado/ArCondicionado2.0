@@ -17,5 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <!-- Configuração do Sonar -->
+        <sonar.host.url>https://sonarqube.com</sonar.host.url>
+        <sonar.login>a06639aad2bdda634c51b1655f5f488352bb66ec</sonar.login>
     </properties>
 </project>
