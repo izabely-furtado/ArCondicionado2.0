@@ -10,6 +10,5 @@ addons:
 before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 
-
 script:
- - sonar-scanner
+ - sonar-scanner -Dsonar.login=a06639aad2bdda634c51b1655f5f488352bb66ec
